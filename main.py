@@ -2,7 +2,7 @@ import sys
 import os
 
 from PyQt5.QtWidgets import *
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 from PyQt5.uic import loadUi
 import matplotlib.font_manager
 from matplotlib.backends.backend_qt5agg import (NavigationToolbar2QT as NavigationToolbar)
@@ -22,16 +22,22 @@ y_array_step = []
 eps = 0
 
 # axis initialization
-x_axis_name = "ω"
-y_axis_name = "∂u"
+x_axis_name = "x"
+y_axis_name = "y"
 x_axis_location = "center"
 y_axis_location = "center"
 x_axis_rotation = 0
 y_axis_rotation = 0
+
 x_log_axis = False
 y_log_axis = False
+axis_scientific = False
+automatic_scientific = False
+scientific_power = 1
 
-title = ""
+title = "predrawing"
+comments_x_axis = []
+comments_x_coordinates = []
 
 # font initialization
 fonts = []
@@ -78,12 +84,12 @@ class MatplotlibWidget(QMainWindow):
         self.comboBox_MathFont.addItems(math_fonts)
 
     def initial_table(self):
-        table_width = self.tableWidget_Coordinates.viewport().width()
+        # table_width = self.tableWidget_Coordinates.viewport().width()
         header = self.tableWidget_Coordinates.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.Stretch)
         header.setSectionResizeMode(1, QHeaderView.Stretch)
 
-        table_width = self.tableWidget_CoordinatesComment.viewport().width()
+        # table_width = self.tableWidget_CoordinatesComment.viewport().width()
         header = self.tableWidget_CoordinatesComment.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.Stretch)
         header.setSectionResizeMode(1, QHeaderView.Stretch)
@@ -91,8 +97,7 @@ class MatplotlibWidget(QMainWindow):
         self.tableWidget_Coordinates.item(0, 0).setBackground(QtGui.QColor(125, 125, 125))'''
 
     def predrawing(self):
-        Plotter.plot_graph(self, x_array, y_array, x_axis_name, y_axis_name, x_axis_rotation, y_axis_rotation,
-                           x_axis_location, y_axis_location, title, x_log_axis, y_log_axis, graph_font, math_font)
+        Plotter.plot_graph(self)
 
     def update_coordinate_table(self):
         global x_array, y_array
@@ -100,10 +105,31 @@ class MatplotlibWidget(QMainWindow):
         self.tableWidget_Coordinates.setRowCount(len(x_array))
         self.tableWidget_CoordinatesComment.setRowCount(len(x_array))
         for x in x_array:
+            item_x = QtWidgets.QTableWidgetItem(str(x_array[row]))
+            item_x.setFlags(item_x.flags() & ~QtCore.Qt.ItemIsEditable)
+
             self.tableWidget_Coordinates.setItem(row, 0, QtWidgets.QTableWidgetItem(str(x_array[row])))
-            self.tableWidget_CoordinatesComment.setItem(row, 0, QtWidgets.QTableWidgetItem(str(x_array[row])))
+            self.tableWidget_CoordinatesComment.setItem(row, 0, item_x.clone())
             self.tableWidget_Coordinates.setItem(row, 1, QtWidgets.QTableWidgetItem(str(y_array[row])))
             row = row + 1
+
+    def get_coordinate_comments(self):
+        row = 0
+        global x_array, comments_x_axis, comments_x_coordinates
+        comments_x_coordinates = []
+        comments_x_axis = []
+        if self.checkBox_CommentX.checkState() == 0:
+            return
+        for i in x_array:
+            item = self.tableWidget_CoordinatesComment.item(row, 1)
+            if item is not None and item.text() != '':
+                comments_x_coordinates.append(float(self.tableWidget_CoordinatesComment.item(row, 0).text()))
+                comments_x_axis.append(item.text())
+            row += 1
+
+        print("comment by x axis")
+        print(comments_x_coordinates)
+        print(comments_x_axis)
 
     def stepgraph_coordinates(self):
         global x_array, y_array, x_array_step, y_array_step, eps
@@ -116,20 +142,31 @@ class MatplotlibWidget(QMainWindow):
         x_array_step, y_array_step = Coordinate.add_boundaries(x_coordinates, y_coordinates, eps)
 
     def draw_graph(self):
-        global x_array, y_array, x_array_step, y_array_step, graph_font, math_font, x_axis_name, y_axis_name, title, x_axis_rotation, y_axis_rotation, x_axis_location, y_axis_location
+        global x_array, y_array, graph_font, math_font, x_axis_name, y_axis_name, title, \
+            x_axis_rotation, y_axis_rotation, x_axis_location, y_axis_location, \
+            axis_scientific, automatic_scientific, scientific_power, comments_x_axis, comments_x_coordinates
+        if len(x_array) == 0:
+            self.predrawing()
+            return
+
         self.general_update()
         self.MplWidget.canvas.axes.clear()
         if self.checkBox_StepLine.checkState() == 0:
             Plotter.plot_graph(self, x_array, y_array, x_axis_name, y_axis_name, x_axis_rotation, y_axis_rotation,
-                               x_axis_location, y_axis_location, title, x_log_axis, y_log_axis, graph_font, math_font)
+                               x_axis_location, y_axis_location, title, x_log_axis, y_log_axis, graph_font, math_font,
+                               comments_x_axis, comments_x_coordinates,
+                               axis_scientific, automatic_scientific, scientific_power)
         if self.checkBox_StepLine.checkState() == 2:
-            Plotter.plot_graph(self, x_array_step, y_array_step, x_axis_name, y_axis_name, x_axis_rotation, y_axis_rotation,
-                               x_axis_location, y_axis_location, title, x_log_axis, y_log_axis, graph_font, math_font)
-
-
+            Plotter.plot_graph(self, x_array_step, y_array_step, x_axis_name, y_axis_name, x_axis_rotation,
+                               y_axis_rotation, x_axis_location, y_axis_location, title,
+                               x_log_axis, y_log_axis, graph_font, math_font,
+                               comments_x_axis, comments_x_coordinates,
+                               axis_scientific, automatic_scientific, scientific_power)
 
     def general_update(self):
-        global x_array, y_array, graph_font, math_font, x_axis_name, y_axis_name, title, x_axis_rotation, y_axis_rotation, x_axis_location, y_axis_location
+        global x_array, y_array, graph_font, math_font, x_axis_name, y_axis_name, title, \
+            x_axis_rotation, y_axis_rotation, x_axis_location, y_axis_location, \
+            axis_scientific, automatic_scientific, scientific_power
         graph_font = self.comboBox_GraphFont.currentText()
         math_font = self.comboBox_MathFont.currentText()
         title = self.LineEdit_GraphTitle.text()
@@ -141,8 +178,18 @@ class MatplotlibWidget(QMainWindow):
         y_axis_location.lower()
         x_axis_rotation = self.spinBox_XAxisRotate.value()
         y_axis_rotation = self.spinBox_YAxisRotate.value()
+        if self.checkBox_ScientificNotation.checkState() == 2:
+            axis_scientific = True
+        else:
+            axis_scientific = False
+        if self.checkBox_AutomaticPower.checkState() == 2:
+            automatic_scientific = True
+        else:
+            automatic_scientific = False
+        scientific_power = self.spinBox_PowerLimit.value()
 
         self.stepgraph_coordinates()
+        self.get_coordinate_comments()
 
     def pan(self):
         """

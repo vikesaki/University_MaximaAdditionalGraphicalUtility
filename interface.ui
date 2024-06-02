@@ -20,7 +20,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">font-family: &quot;Montserrat&quot;;</string>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <property name="leftMargin">
@@ -121,8 +121,8 @@ QPushButton:checked{
          </property>
          <property name="icon">
           <iconset resource="Icons.qrc">
-           <normaloff>:/Color4/color4/file.svg</normaloff>
-           <normalon>:/Color1/color1/file.svg</normalon>:/Color4/color4/file.svg</iconset>
+           <normaloff>:/Color4/icons/color4/file.svg</normaloff>
+           <normalon>:/Color1/icons/color1/file.svg</normalon>:/Color4/icons/color4/file.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -154,8 +154,8 @@ QPushButton:checked{
          </property>
          <property name="icon">
           <iconset resource="Icons.qrc">
-           <normaloff>:/Color4/color4/pencil.svg</normaloff>
-           <normalon>:/Color1/color1/pencil.svg</normalon>:/Color4/color4/pencil.svg</iconset>
+           <normaloff>:/Color4/icons/color4/pencil.svg</normaloff>
+           <normalon>:/Color1/icons/color1/pencil.svg</normalon>:/Color4/icons/color4/pencil.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -184,8 +184,8 @@ QPushButton:checked{
          </property>
          <property name="icon">
           <iconset resource="Icons.qrc">
-           <normaloff>:/Color4/color4/arrow-rotate-left.svg</normaloff>
-           <normalon>:/Color1/color1/arrow-rotate-left.svg</normalon>:/Color4/color4/arrow-rotate-left.svg</iconset>
+           <normaloff>:/Color4/icons/color4/arrow-rotate-left.svg</normaloff>
+           <normalon>:/Color1/icons/color1/arrow-rotate-left.svg</normalon>:/Color4/icons/color4/arrow-rotate-left.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -214,8 +214,8 @@ QPushButton:checked{
          </property>
          <property name="icon">
           <iconset resource="Icons.qrc">
-           <normaloff>:/Color4/color4/swap.svg</normaloff>
-           <normalon>:/Color1/color1/swap.svg</normalon>:/Color4/color4/swap.svg</iconset>
+           <normaloff>:/Color4/icons/color4/swap.svg</normaloff>
+           <normalon>:/Color1/icons/color1/swap.svg</normalon>:/Color4/icons/color4/swap.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -244,8 +244,8 @@ QPushButton:checked{
          </property>
          <property name="icon">
           <iconset resource="Icons.qrc">
-           <normaloff>:/Color4/color4/arrows-maximize.svg</normaloff>
-           <normalon>:/Color1/color1/arrows-maximize.svg</normalon>:/Color4/color4/arrows-maximize.svg</iconset>
+           <normaloff>:/Color4/icons/color4/arrows-maximize.svg</normaloff>
+           <normalon>:/Color1/icons/color1/arrows-maximize.svg</normalon>:/Color4/icons/color4/arrows-maximize.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -274,8 +274,8 @@ QPushButton:checked{
          </property>
          <property name="icon">
           <iconset resource="Icons.qrc">
-           <normaloff>:/Color4/color4/folder.svg</normaloff>
-           <normalon>:/Color1/color1/folder.svg</normalon>:/Color4/color4/folder.svg</iconset>
+           <normaloff>:/Color4/icons/color4/folder.svg</normaloff>
+           <normalon>:/Color1/icons/color1/folder.svg</normalon>:/Color4/icons/color4/folder.svg</iconset>
          </property>
          <property name="iconSize">
           <size>
@@ -366,13 +366,13 @@ QPushButton:checked{
      <widget class="QFrame" name="frame_3">
       <property name="minimumSize">
        <size>
-        <width>250</width>
+        <width>270</width>
         <height>0</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>250</width>
+        <width>270</width>
         <height>16777215</height>
        </size>
       </property>
@@ -407,6 +407,12 @@ QPushButton:checked{
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <family>Montserrat</family>
+           <bold>true</bold>
+          </font>
          </property>
          <property name="styleSheet">
           <string notr="true">QToolBox {	
@@ -451,7 +457,7 @@ QTableWidget::item{
 </string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>1</number>
          </property>
          <property name="tabSpacing">
           <number>6</number>
@@ -461,8 +467,8 @@ QTableWidget::item{
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>224</width>
-            <height>538</height>
+            <width>244</width>
+            <height>541</height>
            </rect>
           </property>
           <attribute name="label">
@@ -554,7 +560,9 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_3">
                       <property name="font">
                        <font>
+                        <family>Montserrat</family>
                         <pointsize>12</pointsize>
+                        <italic>true</italic>
                         <bold>false</bold>
                         <underline>false</underline>
                        </font>
@@ -582,6 +590,12 @@ QTableWidget::item{
                  </item>
                  <item>
                   <widget class="QLabel" name="Label_Location">
+                   <property name="font">
+                    <font>
+                     <family>Montserrat</family>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
                    <property name="text">
                     <string>Location</string>
                    </property>
@@ -642,7 +656,9 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_4">
                       <property name="font">
                        <font>
+                        <family>Montserrat</family>
                         <pointsize>12</pointsize>
+                        <italic>true</italic>
                         <bold>false</bold>
                         <underline>false</underline>
                        </font>
@@ -743,7 +759,9 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_5">
                       <property name="font">
                        <font>
+                        <family>Montserrat</family>
                         <pointsize>12</pointsize>
+                        <italic>true</italic>
                         <bold>false</bold>
                         <underline>false</underline>
                        </font>
@@ -804,6 +822,12 @@ QTableWidget::item{
                     </property>
                     <item>
                      <widget class="QCheckBox" name="checkBox_StepLine">
+                      <property name="font">
+                       <font>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Enable step-line graph</string>
                       </property>
@@ -849,7 +873,8 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_21">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
@@ -928,8 +953,8 @@ QTableWidget::item{
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>224</width>
-            <height>538</height>
+            <width>244</width>
+            <height>541</height>
            </rect>
           </property>
           <attribute name="label">
@@ -972,7 +997,7 @@ QTableWidget::item{
               <property name="bottomMargin">
                <number>0</number>
               </property>
-              <item alignment="Qt::AlignTop">
+              <item>
                <widget class="QFrame" name="frame_16">
                 <property name="frameShape">
                  <enum>QFrame::StyledPanel</enum>
@@ -1018,7 +1043,9 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_2">
                       <property name="font">
                        <font>
+                        <family>Montserrat</family>
                         <pointsize>12</pointsize>
+                        <italic>true</italic>
                         <bold>false</bold>
                         <underline>false</underline>
                        </font>
@@ -1058,6 +1085,12 @@ QTableWidget::item{
                      <height>30</height>
                     </size>
                    </property>
+                   <property name="font">
+                    <font>
+                     <family>Montserrat</family>
+                     <pointsize>9</pointsize>
+                    </font>
+                   </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -1081,7 +1114,8 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_16">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
@@ -1168,7 +1202,8 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_17">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
@@ -1246,7 +1281,8 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_20">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
@@ -1290,7 +1326,7 @@ QTableWidget::item{
                 </layout>
                </widget>
               </item>
-              <item alignment="Qt::AlignTop">
+              <item>
                <widget class="QFrame" name="frame_7">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -1317,7 +1353,7 @@ QTableWidget::item{
                  <property name="bottomMargin">
                   <number>0</number>
                  </property>
-                 <item alignment="Qt::AlignTop">
+                 <item>
                   <widget class="QFrame" name="frame_10">
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
@@ -1342,7 +1378,9 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_9">
                       <property name="font">
                        <font>
+                        <family>Montserrat</family>
                         <pointsize>12</pointsize>
+                        <italic>true</italic>
                         <bold>false</bold>
                         <underline>false</underline>
                        </font>
@@ -1399,12 +1437,13 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_10">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
                       <property name="text">
-                       <string>X Axis</string>
+                       <string>X-Axis</string>
                       </property>
                      </widget>
                     </item>
@@ -1424,7 +1463,7 @@ QTableWidget::item{
                    </layout>
                   </widget>
                  </item>
-                 <item alignment="Qt::AlignTop">
+                 <item>
                   <widget class="QFrame" name="frame_11">
                    <property name="minimumSize">
                     <size>
@@ -1461,7 +1500,8 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_11">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
@@ -1548,7 +1588,8 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_12">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
@@ -1641,7 +1682,8 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_18">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
@@ -1716,12 +1758,13 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_15">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
                       <property name="text">
-                       <string>Y Axis</string>
+                       <string>Y-Axis</string>
                       </property>
                      </widget>
                     </item>
@@ -1778,7 +1821,8 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_13">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
@@ -1859,7 +1903,8 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_14">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
@@ -1952,7 +1997,8 @@ QTableWidget::item{
                      <widget class="QLabel" name="label_19">
                       <property name="font">
                        <font>
-                        <pointsize>9</pointsize>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
                         <bold>false</bold>
                        </font>
                       </property>
@@ -1996,6 +2042,178 @@ QTableWidget::item{
                    </layout>
                   </widget>
                  </item>
+                 <item>
+                  <widget class="QFrame" name="frame_35">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_24">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_22">
+                      <property name="font">
+                       <font>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
+                        <bold>false</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Axis Notation</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_24">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>176</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_ScientificNotation">
+                   <property name="font">
+                    <font>
+                     <family>Montserrat</family>
+                     <pointsize>10</pointsize>
+                     <bold>false</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Enable Scientific Notation</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_AutomaticPower">
+                   <property name="font">
+                    <font>
+                     <family>Montserrat</family>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Automatic Power Limit</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_36">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_25">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_23">
+                      <property name="font">
+                       <font>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
+                        <bold>false</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Power Limit</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_25">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>27</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="spinBox_PowerLimit">
+                      <property name="minimumSize">
+                       <size>
+                        <width>120</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>120</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>360</number>
+                      </property>
+                      <property name="value">
+                       <number>1</number>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
                 </layout>
                </widget>
               </item>
@@ -2025,8 +2243,8 @@ QTableWidget::item{
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>224</width>
-            <height>538</height>
+            <width>244</width>
+            <height>541</height>
            </rect>
           </property>
           <attribute name="label">
@@ -2053,113 +2271,152 @@ QTableWidget::item{
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <widget class="QFrame" name="frame_32">
-              <property name="geometry">
-               <rect>
-                <x>0</x>
-                <y>20</y>
-                <width>222</width>
-                <height>223</height>
-               </rect>
+             <layout class="QVBoxLayout" name="verticalLayout_12">
+              <property name="leftMargin">
+               <number>0</number>
               </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+              <property name="topMargin">
+               <number>0</number>
               </property>
-              <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
+              <property name="rightMargin">
+               <number>0</number>
               </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
+              <property name="bottomMargin">
+               <number>0</number>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_11">
-               <property name="leftMargin">
-                <number>5</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>5</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <item>
-                <widget class="QFrame" name="frame_33">
-                 <property name="frameShape">
-                  <enum>QFrame::StyledPanel</enum>
+              <item>
+               <widget class="QFrame" name="frame_32">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <property name="leftMargin">
+                  <number>5</number>
                  </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
+                 <property name="topMargin">
+                  <number>0</number>
                  </property>
-                 <layout class="QHBoxLayout" name="horizontalLayout_23">
-                  <property name="leftMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="topMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="rightMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="bottomMargin">
-                   <number>0</number>
-                  </property>
-                  <item>
-                   <widget class="QLabel" name="label_6">
-                    <property name="font">
-                     <font>
-                      <pointsize>12</pointsize>
-                      <bold>false</bold>
-                      <underline>false</underline>
-                     </font>
+                 <property name="rightMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QFrame" name="frame_33">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_23">
+                    <property name="leftMargin">
+                     <number>0</number>
                     </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_6">
+                      <property name="font">
+                       <font>
+                        <family>Montserrat</family>
+                        <pointsize>12</pointsize>
+                        <italic>true</italic>
+                        <bold>false</bold>
+                        <underline>false</underline>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Comment by X coordinate</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_6">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>86</width>
+                        <height>17</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_CommentX">
+                   <property name="font">
+                    <font>
+                     <family>Montserrat</family>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Enable comment</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTableWidget" name="tableWidget_CoordinatesComment">
+                   <property name="editTriggers">
+                    <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+                   </property>
+                   <attribute name="verticalHeaderStretchLastSection">
+                    <bool>false</bool>
+                   </attribute>
+                   <column>
                     <property name="text">
-                     <string>Comment-by-X-coordinate</string>
+                     <string>X</string>
                     </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <spacer name="horizontalSpacer_6">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
+                   </column>
+                   <column>
+                    <property name="text">
+                     <string>Comment</string>
                     </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>86</width>
-                      <height>17</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item>
-                <widget class="QTableWidget" name="tableWidget_CoordinatesComment">
-                 <property name="editTriggers">
-                  <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
-                 </property>
-                 <attribute name="verticalHeaderStretchLastSection">
-                  <bool>false</bool>
-                 </attribute>
-                 <column>
-                  <property name="text">
-                   <string>X</string>
-                  </property>
-                 </column>
-                 <column>
-                  <property name="text">
-                   <string>Comment</string>
-                  </property>
-                 </column>
-                </widget>
-               </item>
-              </layout>
-             </widget>
+                   </column>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QFrame" name="frame_34">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
           </layout>
