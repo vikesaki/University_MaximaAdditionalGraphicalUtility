@@ -6,13 +6,14 @@ from matplotlib.ticker import ScalarFormatter
 plt.rcParams["font.family"] = "Times New Roman"
 
 
-def plot_graph(self, x_array, y_array,
+def plot_graph(self, x_array = [], y_array = [],
                x_axis_name=" ", y_axis_name=" ",
                x_axis_rotation=0, y_axis_rotation=0,
                x_axis_location="center", y_axis_location="center",
                title=" ",
                x_log_axes=False, y_log_axes=False,
-               graph_font='cursive', math_font="stix"):
+               graph_font='DejaVu Sans', math_font="stix",
+               comments_x_axis = None, comments_x_coordinates=None):
     """
     Plot a scatter plot with axis tick labels in scientific notation.
 
@@ -31,6 +32,7 @@ def plot_graph(self, x_array, y_array,
                    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T']
     coordinate_number = len(x_array)
     new_point_names = point_names[:coordinate_number]
+
     plt.rcParams["font.family"] = graph_font
     plt.rcParams["mathtext.fontset"] = math_font
 
@@ -44,19 +46,20 @@ def plot_graph(self, x_array, y_array,
     # Plot data
     ax.plot(x_array, y_array, linestyle='-', color='r', label='Line plot')
 
-    # Draw vertical dotted lines for each x-coordinate
-    for xi in x_array:
-        ax.axvline(xi, color='gray', linestyle='--', linewidth=0.5)
+    if comments_x_coordinates is not None:
+        # Draw vertical dotted lines for each x-coordinate
+        for xi in comments_x_coordinates:
+            ax.axvline(xi, color='gray', linestyle='--', linewidth=0.5)
 
-    # Create a second axes for the top x-axis
-    ax2 = ax.twiny()
-    # Set the ticks and labels for the top x-axis
-    ax2.set_xlim(ax.get_xlim())
-    # Set custom tick locations and labels for the new y-axis
-    ax2.set_xticks(x_array)
-    ax2.set_xticklabels(new_point_names)  # Set custom tick labels as point names
-    # Hide ticks and tick labels of the top x-axis
-    ax2.tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
+        # Create a second axes for the top x-axis
+        ax2 = ax.twiny()
+        # Set the ticks and labels for the top x-axis
+        ax2.set_xlim(ax.get_xlim())
+        # Set custom tick locations and labels for the new y-axis
+        ax2.set_xticks(comments_x_coordinates)
+        ax2.set_xticklabels(comments_x_axis)  # Set custom tick labels as point names
+        # Hide ticks and tick labels of the top x-axis
+        ax2.tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
 
     # Set log scale for axes if specified
     if x_log_axes:
