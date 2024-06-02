@@ -59,13 +59,13 @@ def duplicate_coordinates(x_array, y_array):
     x_array (numpy.ndarray): Array of x values.
     y_array (numpy.ndarray): Array of y values.
     Returns:
-    numpy.ndarray, numpy.ndarray: Arrays containing duplicated coordinates.
+    numpy.ndarray, numpy.ndarray: Arrays containing duplicated coordinates, sorted in descending order.
     """
-    # Ensure x_array and y_array have the same length
     assert len(x_array) == len(y_array), "x_array and y_array must have the same length."
 
-    # Create duplicated coordinates
     duplicated_x = np.repeat(x_array, 2)  # Duplicate each x value
     duplicated_y = np.repeat(y_array, 2)  # Duplicate each y value
+
+    duplicated_x = np.sort(duplicated_x)[::-1]
 
     return duplicated_x, duplicated_y
