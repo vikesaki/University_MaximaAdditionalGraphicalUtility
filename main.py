@@ -34,10 +34,16 @@ y_log_axis = False
 axis_scientific = False
 automatic_scientific = False
 scientific_power = 1
+comment_drawing = False
 
 title = "predrawing"
+
+# Comments part
 comments_x_axis = []
 comments_x_coordinates = []
+comments_drawing_x = []
+comments_drawing_y = []
+comments_drawing_text = []
 
 # font initialization
 fonts = []
@@ -71,6 +77,10 @@ class MatplotlibWidget(QMainWindow):
         self.pushButton_Save.clicked.connect(self.save)
         self.pushButton_Zoom.clicked.connect(self.zoom)
 
+        # Comment Button
+        self.pushButton_AddComment.clicked.connect(self.add_drawing_comments)
+        self.pushButton_RemoveComment.clicked.connect(self.remove_drawing_comment)
+
     def initial_font(self):
         global fonts, graph_font, math_font
         fpaths = matplotlib.font_manager.findSystemFonts()
@@ -93,43 +103,127 @@ class MatplotlibWidget(QMainWindow):
         header = self.tableWidget_CoordinatesComment.horizontalHeader()
         header.setSectionResizeMode(0, QHeaderView.Stretch)
         header.setSectionResizeMode(1, QHeaderView.Stretch)
+
+        header = self.tableWidget_DrawingComment.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QHeaderView.Stretch)
+        header.setSectionResizeMode(2, QHeaderView.Stretch)
         '''self.tableWidget_Coordinates.item(0, 0).setBackground(QtGui.QColor(125, 125, 125))
         self.tableWidget_Coordinates.item(0, 0).setBackground(QtGui.QColor(125, 125, 125))'''
 
     def predrawing(self):
         Plotter.plot_graph(self)
 
-    def update_coordinate_table(self):
+    def update_table(self):
         global x_array, y_array
-        row = 0
+        self.update_comment_drawing()
         self.tableWidget_Coordinates.setRowCount(len(x_array))
         self.tableWidget_CoordinatesComment.setRowCount(len(x_array))
-        for x in x_array:
+        for row in range(len(x_array)):
             item_x = QtWidgets.QTableWidgetItem(str(x_array[row]))
             item_x.setFlags(item_x.flags() & ~QtCore.Qt.ItemIsEditable)
 
             self.tableWidget_Coordinates.setItem(row, 0, QtWidgets.QTableWidgetItem(str(x_array[row])))
-            self.tableWidget_CoordinatesComment.setItem(row, 0, item_x.clone())
             self.tableWidget_Coordinates.setItem(row, 1, QtWidgets.QTableWidgetItem(str(y_array[row])))
-            row = row + 1
+            self.tableWidget_CoordinatesComment.setItem(row, 0, item_x.clone())
+
+    def update_comment_drawing(self):
+        global x_array, y_array, comments_drawing_x, comments_drawing_y, comments_drawing_text
+        self.tableWidget_DrawingComment.setRowCount(len(comments_drawing_x))
+        for row in range(len(comments_drawing_x)):
+            self.tableWidget_DrawingComment.setItem(row, 0, QtWidgets.QTableWidgetItem(str(comments_drawing_x[row])))
+            self.tableWidget_DrawingComment.setItem(row, 1, QtWidgets.QTableWidgetItem(str(comments_drawing_y[row])))
+            self.tableWidget_DrawingComment.setItem(row, 2, QtWidgets.QTableWidgetItem(comments_drawing_text[row]))
 
     def get_coordinate_comments(self):
-        row = 0
         global x_array, comments_x_axis, comments_x_coordinates
         comments_x_coordinates = []
         comments_x_axis = []
         if self.checkBox_CommentX.checkState() == 0:
             return
-        for i in x_array:
+        for row in range(len(x_array)):
             item = self.tableWidget_CoordinatesComment.item(row, 1)
             if item is not None and item.text() != '':
                 comments_x_coordinates.append(float(self.tableWidget_CoordinatesComment.item(row, 0).text()))
                 comments_x_axis.append(item.text())
-            row += 1
 
         print("comment by x axis")
         print(comments_x_coordinates)
         print(comments_x_axis)
+
+    def add_drawing_comments(self):
+        global comments_drawing_x, comments_drawing_y, comments_drawing_text
+        x_value = self.LineEdit_CommentOnDrawingX.text()
+        y_value = self.LineEdit_CommentOnDrawingY.text()
+        text_value = self.LineEdit_CommentOnDrawingText.text()
+
+        if x_value == '' or y_value == '' or text_value == '':
+            return  # Do nothing if any of the fields are empty
+
+        try:
+            x_value_float = float(x_value)
+            y_value_float = float(y_value)
+        except ValueError:
+            # Show an error message box
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Invalid input")
+            msg.setInformativeText("x_value and y_value must be valid float numbers")
+            msg.setWindowTitle("Input Error")
+            msg.exec_()
+            return
+
+        # Check for duplicates
+        for x, y, text in zip(comments_drawing_x, comments_drawing_y, comments_drawing_text):
+            if x == x_value_float and y == y_value_float and text == text_value:
+                # Show a duplicate error message box
+                msg = QMessageBox()
+                msg.setIcon(QMessageBox.Warning)
+                msg.setText("Duplicate comment")
+                msg.setInformativeText("The comment you are trying to add already exists.")
+                msg.setWindowTitle("Duplicate Error")
+                msg.exec_()
+                return
+
+        # If no duplicates are found, append the new comment
+        comments_drawing_x.append(x_value_float)
+        comments_drawing_y.append(y_value_float)
+        comments_drawing_text.append(text_value)
+
+        print("comment on drawing")
+        print(comments_drawing_x)
+        print(comments_drawing_y)
+        print(comments_drawing_text)
+        self.update_comment_drawing()
+
+    def remove_drawing_comment(self):
+        global comments_drawing_x, comments_drawing_y, comments_drawing_text
+
+        index_value = self.spinBox_RemoveIndex.value()
+
+        # Adjust for 0-based index
+        index = index_value - 1
+
+        if index < 0 or index >= len(comments_drawing_x):
+            # Show an error message box if index is out of range
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Invalid index")
+            msg.setInformativeText("The index you provided is out of range.")
+            msg.setWindowTitle("Index Error")
+            msg.exec_()
+            return
+
+        # Remove the comment at the specified index
+        comments_drawing_x.pop(index)
+        comments_drawing_y.pop(index)
+        comments_drawing_text.pop(index)
+
+        print("comment removed")
+        print(comments_drawing_x)
+        print(comments_drawing_y)
+        print(comments_drawing_text)
+        self.update_comment_drawing()
 
     def stepgraph_coordinates(self):
         global x_array, y_array, x_array_step, y_array_step, eps
@@ -155,18 +249,20 @@ class MatplotlibWidget(QMainWindow):
             Plotter.plot_graph(self, x_array, y_array, x_axis_name, y_axis_name, x_axis_rotation, y_axis_rotation,
                                x_axis_location, y_axis_location, title, x_log_axis, y_log_axis, graph_font, math_font,
                                comments_x_axis, comments_x_coordinates,
+                               comment_drawing, comments_drawing_x, comments_drawing_y, comments_drawing_text,
                                axis_scientific, automatic_scientific, scientific_power)
         if self.checkBox_StepLine.checkState() == 2:
             Plotter.plot_graph(self, x_array_step, y_array_step, x_axis_name, y_axis_name, x_axis_rotation,
                                y_axis_rotation, x_axis_location, y_axis_location, title,
                                x_log_axis, y_log_axis, graph_font, math_font,
                                comments_x_axis, comments_x_coordinates,
+                               comment_drawing, comments_drawing_x, comments_drawing_y, comments_drawing_text,
                                axis_scientific, automatic_scientific, scientific_power)
 
     def general_update(self):
         global x_array, y_array, graph_font, math_font, x_axis_name, y_axis_name, title, \
             x_axis_rotation, y_axis_rotation, x_axis_location, y_axis_location, \
-            axis_scientific, automatic_scientific, scientific_power
+            axis_scientific, automatic_scientific, scientific_power, comment_drawing
         graph_font = self.comboBox_GraphFont.currentText()
         math_font = self.comboBox_MathFont.currentText()
         title = self.LineEdit_GraphTitle.text()
@@ -178,6 +274,7 @@ class MatplotlibWidget(QMainWindow):
         y_axis_location.lower()
         x_axis_rotation = self.spinBox_XAxisRotate.value()
         y_axis_rotation = self.spinBox_YAxisRotate.value()
+
         if self.checkBox_ScientificNotation.checkState() == 2:
             axis_scientific = True
         else:
@@ -188,31 +285,24 @@ class MatplotlibWidget(QMainWindow):
             automatic_scientific = False
         scientific_power = self.spinBox_PowerLimit.value()
 
+        if self.checkBox_CommentOnDrawing.checkState() == 2:
+            comment_drawing = True
+        else:
+            comment_drawing = False
+
         self.stepgraph_coordinates()
         self.get_coordinate_comments()
 
     def pan(self):
-        """
-        Enable panning mode for the Matplotlib canvas.
-        """
         self.MplWidget.canvas.toolbar.pan()
 
     def zoom(self):
-        """
-        Enable zooming mode for the Matplotlib canvas.
-        """
         self.toolbar.zoom()
 
     def home(self):
-        """
-        Reset the view to the original limits.
-        """
         self.toolbar.home()
 
     def save(self):
-        """
-        Save the current figure.
-        """
         self.toolbar.save_figure()
 
     def open_file(self):
@@ -228,7 +318,7 @@ class MatplotlibWidget(QMainWindow):
             x_array, y_array = InputFileHandler.OpenFileHandler(filename[0])
             base_name = os.path.basename(filename[0])  # Extract the filename without the path
             self.Label_Location.setText(base_name)
-            self.update_coordinate_table()
+            self.update_table()
             self.stepgraph_coordinates()
 
         print("Input Data")

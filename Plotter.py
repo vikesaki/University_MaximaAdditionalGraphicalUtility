@@ -15,6 +15,7 @@ def plot_graph(self, x_array=[], y_array=[],
                x_log_axes=False, y_log_axes=False,
                graph_font='DejaVu Sans', math_font="stix",
                comments_x_axis=None, comments_x_coordinates=None,
+               comments_drawing=False, comments_drawing_x=[], comments_drawing_y=[], comments_drawing_text=[],
                axis_scientific=False, automatic_scientific=False, scientific_power=1):
     """
     Plot a scatter plot with axis tick labels in scientific notation.
@@ -58,6 +59,11 @@ def plot_graph(self, x_array=[], y_array=[],
         # Hide ticks and tick labels of the top x-axis
         ax2.tick_params(axis='x', which='both', bottom=False, top=False, labelbottom=False)
 
+    # Draw comments on the graph
+    if comments_drawing:
+        for x, y, text in zip(comments_drawing_x, comments_drawing_y, comments_drawing_text):
+            ax.annotate(text, (x, y), textcoords="offset points", xytext=(0, 10), ha='center')
+
     # Set log scale for axes if specified
     if x_log_axes:
         ax.set_xscale('log')
@@ -80,6 +86,7 @@ def plot_graph(self, x_array=[], y_array=[],
         ax.set_title(title)
 
     # Draw the canvas
+    fig.tight_layout()
     self.MplWidget.canvas.draw()
 
 
