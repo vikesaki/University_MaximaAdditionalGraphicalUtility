@@ -17,33 +17,53 @@ import random
 # Param initialization
 x_array = []
 y_array = []
+coordinate = {}
 x_array_step = []
 y_array_step = []
 eps = 0
 
-# axis initialization
+# axes initialization
+# x-axis title
 x_axis_name = "x"
-y_axis_name = "y"
 x_axis_location = "center"
-y_axis_location = "center"
 x_axis_rotation = 0
-y_axis_rotation = 0
+x_axis_size = 16
+x_axis_color = "#000000"
 
+# y axis title
+y_axis_name = "y"
+y_axis_location = "center"
+y_axis_rotation = 0
+y_axis_size = 16
+y_axis_color = "#000000"
+
+# axis notation
 x_log_axis = False
 y_log_axis = False
 axis_scientific = False
 automatic_scientific = False
 scientific_power = 1
 comment_drawing = False
+axes_size = 10
+axes_color = "#000000"
 
+# title
 title = "predrawing"
+title_size = 20
+title_color = "#000000"
 
 # Comments part
 comments_x_axis = []
 comments_x_coordinates = []
+comments_x_size = 16
+comments_x_color = "#000000"
+
 comments_drawing_x = []
 comments_drawing_y = []
 comments_drawing_text = []
+comments_size = []
+comments_initial_color = "#000000"
+comments_color = []
 
 # font initialization
 fonts = []
@@ -81,6 +101,58 @@ class MatplotlibWidget(QMainWindow):
         self.pushButton_AddComment.clicked.connect(self.add_drawing_comments)
         self.pushButton_RemoveComment.clicked.connect(self.remove_drawing_comment)
 
+        # Color Button Initialization
+        self.button_names = [
+            'pushButton_ColorTitle',
+            'pushButton_ColorXAxis',
+            'pushButton_ColorYAxis',
+            'pushButton_ColorAxisNotation',
+            'pushButton_ColorCommentX',
+            'pushButton_ColorDrawing'
+        ]
+
+        # Dictionary to store button widgets
+        self.buttons = {name: getattr(self, name) for name in self.button_names}
+
+        # Connect each button to the color dialog
+        for key, button in self.buttons.items():
+            button.clicked.connect(lambda _, b=button, k=key: self.color_dialog(b, k))
+
+    def color_dialog(self, button, setting):
+        global title_color, x_axis_color, y_axis_color, axes_color, comments_x_color, comments_color, \
+            comments_initial_color
+        color = QColorDialog.getColor()
+        if color.isValid():
+            hex_color = color.name()
+            button.setText(hex_color)
+            button.setStyleSheet(
+                f'border: 2px solid {hex_color};'
+            )
+            setattr(self, setting, hex_color)
+
+            # Update the corresponding global color parameter based on the button
+            button_name = button.objectName()
+            if button_name == 'pushButton_ColorTitle':
+                title_color = hex_color
+            elif button_name == 'pushButton_ColorXAxis':
+                x_axis_color = hex_color
+            elif button_name == 'pushButton_ColorYAxis':
+                y_axis_color = hex_color
+            elif button_name == 'pushButton_ColorAxisNotation':
+                axes_color = hex_color
+            elif button_name == 'pushButton_ColorCommentX':
+                comments_x_color = hex_color
+            elif button_name == 'pushButton_ColorDrawing':
+                comments_initial_color = hex_color
+
+            # debug color
+            print(f"title_color: {title_color}")
+            print(f"x_axis_color: {x_axis_color}")
+            print(f"y_axis_color: {y_axis_color}")
+            print(f"axes_color: {axes_color}")
+            print(f"comments_x_color: {comments_x_color}")
+            print(f"comments_color: {comments_color}")
+
     def initial_font(self):
         global fonts, graph_font, math_font
         fpaths = matplotlib.font_manager.findSystemFonts()
@@ -105,11 +177,11 @@ class MatplotlibWidget(QMainWindow):
         header.setSectionResizeMode(1, QHeaderView.Stretch)
 
         header = self.tableWidget_DrawingComment.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.Stretch)
-        header.setSectionResizeMode(1, QHeaderView.Stretch)
-        header.setSectionResizeMode(2, QHeaderView.Stretch)
-        '''self.tableWidget_Coordinates.item(0, 0).setBackground(QtGui.QColor(125, 125, 125))
-        self.tableWidget_Coordinates.item(0, 0).setBackground(QtGui.QColor(125, 125, 125))'''
+        header.setSectionResizeMode(0, 70)
+        header.setSectionResizeMode(1, 70)
+        header.setSectionResizeMode(2, 70)
+        header.setSectionResizeMode(3, 70)
+        header.setSectionResizeMode(4, 70)
 
     def predrawing(self):
         Plotter.plot_graph(self)
@@ -128,12 +200,15 @@ class MatplotlibWidget(QMainWindow):
             self.tableWidget_CoordinatesComment.setItem(row, 0, item_x.clone())
 
     def update_comment_drawing(self):
-        global x_array, y_array, comments_drawing_x, comments_drawing_y, comments_drawing_text
+        global x_array, y_array, comments_drawing_x, comments_drawing_y, comments_drawing_text, comments_size, \
+            comments_color
         self.tableWidget_DrawingComment.setRowCount(len(comments_drawing_x))
         for row in range(len(comments_drawing_x)):
             self.tableWidget_DrawingComment.setItem(row, 0, QtWidgets.QTableWidgetItem(str(comments_drawing_x[row])))
             self.tableWidget_DrawingComment.setItem(row, 1, QtWidgets.QTableWidgetItem(str(comments_drawing_y[row])))
             self.tableWidget_DrawingComment.setItem(row, 2, QtWidgets.QTableWidgetItem(comments_drawing_text[row]))
+            self.tableWidget_DrawingComment.setItem(row, 3, QtWidgets.QTableWidgetItem(str(comments_size[row])))
+            self.tableWidget_DrawingComment.setItem(row, 4, QtWidgets.QTableWidgetItem(comments_color[row]))
 
     def get_coordinate_comments(self):
         global x_array, comments_x_axis, comments_x_coordinates
@@ -152,10 +227,13 @@ class MatplotlibWidget(QMainWindow):
         print(comments_x_axis)
 
     def add_drawing_comments(self):
-        global comments_drawing_x, comments_drawing_y, comments_drawing_text
+        global comments_drawing_x, comments_drawing_y, comments_drawing_text, comments_color, comments_size, \
+            comments_initial_color
         x_value = self.LineEdit_CommentOnDrawingX.text()
         y_value = self.LineEdit_CommentOnDrawingY.text()
         text_value = self.LineEdit_CommentOnDrawingText.text()
+        color_value = comments_initial_color
+        size_value = self.spinBox_CommentDrawing.value()
 
         if x_value == '' or y_value == '' or text_value == '':
             return  # Do nothing if any of the fields are empty
@@ -189,11 +267,17 @@ class MatplotlibWidget(QMainWindow):
         comments_drawing_x.append(x_value_float)
         comments_drawing_y.append(y_value_float)
         comments_drawing_text.append(text_value)
+        if not color_value.startswith('#') or len(color_value) != 7:
+            color_value = '#000000'
+        comments_color.append(color_value)
+        comments_size.append(size_value)
 
         print("comment on drawing")
         print(comments_drawing_x)
         print(comments_drawing_y)
         print(comments_drawing_text)
+        print(comments_color)
+        print(comments_size)
         self.update_comment_drawing()
 
     def remove_drawing_comment(self):
@@ -238,7 +322,9 @@ class MatplotlibWidget(QMainWindow):
     def draw_graph(self):
         global x_array, y_array, graph_font, math_font, x_axis_name, y_axis_name, title, \
             x_axis_rotation, y_axis_rotation, x_axis_location, y_axis_location, \
-            axis_scientific, automatic_scientific, scientific_power, comments_x_axis, comments_x_coordinates
+            axis_scientific, automatic_scientific, scientific_power, comments_x_axis, comments_x_coordinates, \
+            x_axis_size, x_axis_color, y_axis_size, y_axis_color, axes_size, axes_color, title_size, title_color, \
+            comments_x_size, comments_x_color, comments_size, comments_color
         if len(x_array) == 0:
             self.predrawing()
             return
@@ -250,19 +336,26 @@ class MatplotlibWidget(QMainWindow):
                                x_axis_location, y_axis_location, title, x_log_axis, y_log_axis, graph_font, math_font,
                                comments_x_axis, comments_x_coordinates,
                                comment_drawing, comments_drawing_x, comments_drawing_y, comments_drawing_text,
-                               axis_scientific, automatic_scientific, scientific_power)
+                               axis_scientific, automatic_scientific, scientific_power,
+                               x_axis_size, x_axis_color, y_axis_size, y_axis_color, axes_size, axes_color, title_size,
+                               title_color, comments_x_size, comments_x_color, comments_size, comments_color)
         if self.checkBox_StepLine.checkState() == 2:
             Plotter.plot_graph(self, x_array_step, y_array_step, x_axis_name, y_axis_name, x_axis_rotation,
                                y_axis_rotation, x_axis_location, y_axis_location, title,
                                x_log_axis, y_log_axis, graph_font, math_font,
                                comments_x_axis, comments_x_coordinates,
                                comment_drawing, comments_drawing_x, comments_drawing_y, comments_drawing_text,
-                               axis_scientific, automatic_scientific, scientific_power)
+                               axis_scientific, automatic_scientific, scientific_power,
+                               x_axis_size, x_axis_color, y_axis_size, y_axis_color, axes_size, axes_color, title_size,
+                               title_color, comments_x_size, comments_x_color, comments_size, comments_color)
 
     def general_update(self):
         global x_array, y_array, graph_font, math_font, x_axis_name, y_axis_name, title, \
             x_axis_rotation, y_axis_rotation, x_axis_location, y_axis_location, \
-            axis_scientific, automatic_scientific, scientific_power, comment_drawing
+            axis_scientific, automatic_scientific, scientific_power, comment_drawing, \
+            x_axis_size, x_axis_color, y_axis_size, y_axis_color, axes_size, axes_color, title_size, title_color, \
+            comments_x_size, comments_x_color, comments_size, comments_color
+
         graph_font = self.comboBox_GraphFont.currentText()
         math_font = self.comboBox_MathFont.currentText()
         title = self.LineEdit_GraphTitle.text()
@@ -274,6 +367,11 @@ class MatplotlibWidget(QMainWindow):
         y_axis_location.lower()
         x_axis_rotation = self.spinBox_XAxisRotate.value()
         y_axis_rotation = self.spinBox_YAxisRotate.value()
+        title_size = self.spinBox_TitleSize.value()
+        x_axis_size = self.spinBox_XAxisSize.value()
+        y_axis_size = self.spinBox_YAxisSize.value()
+        axes_size = self.spinBox_AxisNotationSize.value()
+        comments_x_size = self.spinBox_CommentXSize.value()
 
         if self.checkBox_ScientificNotation.checkState() == 2:
             axis_scientific = True
@@ -309,7 +407,8 @@ class MatplotlibWidget(QMainWindow):
         global x_array, y_array, x_array_step, y_array_step
         filename = None
         nofile = ('', '')
-        filename = QFileDialog.getOpenFileName(self, "Open File", "D:\3. belajar\9. diplom code\WithUI",
+        current_folder_path = os.getcwd()
+        filename = QFileDialog.getOpenFileName(self, "Open File", current_folder_path,
                                                "Maxima Files (*.mac)")
 
         print(filename)
