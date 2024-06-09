@@ -424,7 +424,7 @@ QToolBox::tab {
 	text-align: center;
 }
 
-QLineEdit, QSpinBox, QComboBox {
+QLineEdit, QSpinBox, QComboBox, QDoubleSpinBox {
 	border : 2px solid;
 	border-color: rgb(160, 195, 225);
 	border-radius : 5px;
@@ -460,7 +460,7 @@ QTableWidget::item{
 </string>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>0</number>
          </property>
          <property name="tabSpacing">
           <number>6</number>
@@ -475,7 +475,7 @@ QTableWidget::item{
            </rect>
           </property>
           <attribute name="label">
-           <string>Coordinates Configuration</string>
+           <string>Line Configuration</string>
           </attribute>
           <layout class="QHBoxLayout" name="horizontalLayout_17">
            <property name="leftMargin">
@@ -498,7 +498,7 @@ QTableWidget::item{
              <property name="frameShadow">
               <enum>QFrame::Raised</enum>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_10">
+             <layout class="QVBoxLayout" name="verticalLayout_17">
               <property name="leftMargin">
                <number>0</number>
               </property>
@@ -711,9 +711,349 @@ QTableWidget::item{
                </widget>
               </item>
               <item>
+               <widget class="QFrame" name="frame_34">
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_10">
+                 <property name="leftMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QFrame" name="frame_59">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_45">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_7">
+                      <property name="font">
+                       <font>
+                        <family>Montserrat</family>
+                        <pointsize>12</pointsize>
+                        <italic>true</italic>
+                        <bold>false</bold>
+                        <underline>false</underline>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Line Configuration</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_7">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>86</width>
+                        <height>17</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_62">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_48">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_44">
+                      <property name="font">
+                       <font>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
+                        <bold>false</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Style</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_46">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>27</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="comboBox_LineStyle">
+                      <property name="minimumSize">
+                       <size>
+                        <width>120</width>
+                        <height>25</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>120</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>solid</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>dashed</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>dotted</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>dashdot</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_63">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_49">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_45">
+                      <property name="font">
+                       <font>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
+                        <bold>false</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Width</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_47">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>27</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_LineWidth">
+                      <property name="minimumSize">
+                       <size>
+                        <width>120</width>
+                        <height>25</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>120</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="decimals">
+                       <number>1</number>
+                      </property>
+                      <property name="minimum">
+                       <double>0.100000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>1.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_64">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_50">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_46">
+                      <property name="font">
+                       <font>
+                        <family>Montserrat</family>
+                        <pointsize>10</pointsize>
+                        <bold>false</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Color</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_48">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>54</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pushButton_LineColor">
+                      <property name="minimumSize">
+                       <size>
+                        <width>120</width>
+                        <height>25</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>Pick Color</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
                <widget class="QFrame" name="frame_26">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -931,6 +1271,173 @@ QTableWidget::item{
                </widget>
               </item>
               <item>
+               <widget class="QFrame" name="frame_60">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>133</height>
+                 </size>
+                </property>
+                <property name="frameShape">
+                 <enum>QFrame::StyledPanel</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Raised</enum>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_18">
+                 <property name="leftMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>0</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>5</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>0</number>
+                 </property>
+                 <item>
+                  <widget class="QFrame" name="frame_61">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_46">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="label_42">
+                      <property name="font">
+                       <font>
+                        <family>Montserrat</family>
+                        <pointsize>12</pointsize>
+                        <italic>true</italic>
+                        <bold>false</bold>
+                        <underline>false</underline>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Canvas Configuration</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_9">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>86</width>
+                        <height>17</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_HideBorder">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>Montserrat</family>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Hide border (top and right)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_EnableGrid">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>Montserrat</family>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Enable grid</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_EnableTicks">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>Montserrat</family>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Hide axes ticks</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_EnableArrow">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <family>Montserrat</family>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Enable arrow on axes 
+(Warning! This will make 
+some feature unusable!)</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
                <widget class="QFrame" name="frame_28">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -955,7 +1462,7 @@ QTableWidget::item{
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-33</y>
+            <y>0</y>
             <width>237</width>
             <height>800</height>
            </rect>
@@ -1054,7 +1561,7 @@ QTableWidget::item{
                        </font>
                       </property>
                       <property name="text">
-                       <string>Graph</string>
+                       <string>Graph Title</string>
                       </property>
                      </widget>
                     </item>
@@ -1387,7 +1894,7 @@ QTableWidget::item{
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBox_TitleSize">
+                     <widget class="QDoubleSpinBox" name="spinBox_TitleSize">
                       <property name="minimumSize">
                        <size>
                         <width>120</width>
@@ -1400,11 +1907,14 @@ QTableWidget::item{
                         <height>16777215</height>
                        </size>
                       </property>
-                      <property name="minimum">
+                      <property name="decimals">
                        <number>1</number>
                       </property>
-                      <property name="maximum">
-                       <number>360</number>
+                      <property name="minimum">
+                       <double>0.100000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>16.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -1952,7 +2462,7 @@ QTableWidget::item{
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBox_XAxisSize">
+                     <widget class="QDoubleSpinBox" name="spinBox_XAxisSize">
                       <property name="minimumSize">
                        <size>
                         <width>120</width>
@@ -1965,11 +2475,14 @@ QTableWidget::item{
                         <height>16777215</height>
                        </size>
                       </property>
-                      <property name="minimum">
+                      <property name="decimals">
                        <number>1</number>
                       </property>
-                      <property name="maximum">
-                       <number>360</number>
+                      <property name="minimum">
+                       <double>0.100000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>12.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -2428,7 +2941,7 @@ QTableWidget::item{
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBox_YAxisSize">
+                     <widget class="QDoubleSpinBox" name="spinBox_YAxisSize">
                       <property name="minimumSize">
                        <size>
                         <width>120</width>
@@ -2441,11 +2954,14 @@ QTableWidget::item{
                         <height>16777215</height>
                        </size>
                       </property>
-                      <property name="minimum">
+                      <property name="decimals">
                        <number>1</number>
                       </property>
-                      <property name="maximum">
-                       <number>360</number>
+                      <property name="minimum">
+                       <double>0.100000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>12.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -2646,7 +3162,7 @@ QTableWidget::item{
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBox_AxisNotationSize">
+                     <widget class="QDoubleSpinBox" name="spinBox_AxisNotationSize">
                       <property name="minimumSize">
                        <size>
                         <width>120</width>
@@ -2659,11 +3175,14 @@ QTableWidget::item{
                         <height>16777215</height>
                        </size>
                       </property>
-                      <property name="minimum">
+                      <property name="decimals">
                        <number>1</number>
                       </property>
-                      <property name="maximum">
-                       <number>360</number>
+                      <property name="minimum">
+                       <double>0.100000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>10.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -3097,7 +3616,7 @@ QTableWidget::item{
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBox_CommentXSize">
+                     <widget class="QDoubleSpinBox" name="spinBox_CommentXSize">
                       <property name="minimumSize">
                        <size>
                         <width>120</width>
@@ -3110,11 +3629,14 @@ QTableWidget::item{
                         <height>16777215</height>
                        </size>
                       </property>
-                      <property name="minimum">
+                      <property name="decimals">
                        <number>1</number>
                       </property>
-                      <property name="maximum">
-                       <number>360</number>
+                      <property name="minimum">
+                       <double>0.100000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>10.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -3760,7 +4282,7 @@ QTableWidget::item{
                      </spacer>
                     </item>
                     <item>
-                     <widget class="QSpinBox" name="spinBox_CommentDrawing">
+                     <widget class="QDoubleSpinBox" name="spinBox_CommentDrawing">
                       <property name="minimumSize">
                        <size>
                         <width>120</width>
@@ -3773,11 +4295,14 @@ QTableWidget::item{
                         <height>16777215</height>
                        </size>
                       </property>
-                      <property name="minimum">
+                      <property name="decimals">
                        <number>1</number>
                       </property>
-                      <property name="maximum">
-                       <number>360</number>
+                      <property name="minimum">
+                       <double>0.100000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>10.000000000000000</double>
                       </property>
                      </widget>
                     </item>

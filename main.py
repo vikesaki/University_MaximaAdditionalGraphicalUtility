@@ -52,6 +52,17 @@ title = "predrawing"
 title_size = 20
 title_color = "#000000"
 
+# line
+line_style = "solid"
+line_width = 1
+line_color = "#000000"
+
+# other graph parts
+borders = True
+grid = False
+hide_ticks = False
+enable_arrow = False
+
 # Comments part
 comments_x_axis = []
 comments_x_coordinates = []
@@ -78,7 +89,7 @@ class MatplotlibWidget(QMainWindow):
 
         loadUi("interface.ui", self)
 
-        self.setWindowTitle("UWWWWEEEEEEEEEEEEEEEEEE")
+        self.setWindowTitle("Maxima Drawing Utility")
 
         # Navigation Toolbar
         self.toolbar = NavigationToolbar(self.MplWidget.canvas, self)  # For toolbar interaction
@@ -108,7 +119,8 @@ class MatplotlibWidget(QMainWindow):
             'pushButton_ColorYAxis',
             'pushButton_ColorAxisNotation',
             'pushButton_ColorCommentX',
-            'pushButton_ColorDrawing'
+            'pushButton_ColorDrawing',
+            'pushButton_LineColor'
         ]
 
         # Dictionary to store button widgets
@@ -120,7 +132,7 @@ class MatplotlibWidget(QMainWindow):
 
     def color_dialog(self, button, setting):
         global title_color, x_axis_color, y_axis_color, axes_color, comments_x_color, comments_color, \
-            comments_initial_color
+            comments_initial_color, line_color
         color = QColorDialog.getColor()
         if color.isValid():
             hex_color = color.name()
@@ -144,6 +156,8 @@ class MatplotlibWidget(QMainWindow):
                 comments_x_color = hex_color
             elif button_name == 'pushButton_ColorDrawing':
                 comments_initial_color = hex_color
+            elif button_name == 'pushButton_LineColor':
+                line_color = hex_color
 
             # debug color
             print(f"title_color: {title_color}")
@@ -152,18 +166,35 @@ class MatplotlibWidget(QMainWindow):
             print(f"axes_color: {axes_color}")
             print(f"comments_x_color: {comments_x_color}")
             print(f"comments_color: {comments_color}")
+            print(f"line_color: {line_color}")
 
     def initial_font(self):
         global fonts, graph_font, math_font
         fpaths = matplotlib.font_manager.findSystemFonts()
+        fonts = []
+
+        # Collect all font family names
         for i in fpaths:
             f = matplotlib.font_manager.get_font(i)
             fonts.append(f.family_name)
-        fonts.sort()
-        fonts = list(dict.fromkeys(fonts))
+
+        fonts = sorted(set(fonts))  # Remove duplicates and sort
+
+        # Add fonts to combo boxes
         self.comboBox_GraphFont.addItems(fonts)
         math_fonts = ['dejavusans', 'dejavuserif', 'cm', 'stix', 'stixsans']
         self.comboBox_MathFont.addItems(math_fonts)
+
+        # Set default fonts if available
+        if 'Times New Roman' in fonts:
+            default_graph_font = 'Times New Roman'
+        else:
+            default_graph_font = fonts[0]  # Fall back to the first font in the list
+
+        default_math_font = 'stix'
+
+        self.comboBox_GraphFont.setCurrentText(default_graph_font)
+        self.comboBox_MathFont.setCurrentText(default_math_font)
 
     def initial_table(self):
         # table_width = self.tableWidget_Coordinates.viewport().width()
@@ -324,13 +355,41 @@ class MatplotlibWidget(QMainWindow):
             x_axis_rotation, y_axis_rotation, x_axis_location, y_axis_location, \
             axis_scientific, automatic_scientific, scientific_power, comments_x_axis, comments_x_coordinates, \
             x_axis_size, x_axis_color, y_axis_size, y_axis_color, axes_size, axes_color, title_size, title_color, \
-            comments_x_size, comments_x_color, comments_size, comments_color
+            comments_x_size, comments_x_color, comments_size, comments_color, line_style, line_width, line_color, \
+            borders, hide_ticks, enable_arrow, grid
+
         if len(x_array) == 0:
             self.predrawing()
             return
 
         self.general_update()
         self.MplWidget.canvas.axes.clear()
+        if enable_arrow and self.checkBox_StepLine.checkState() == 0:
+            Plotter.plot_graph_with_arrow(self, x_array, y_array, x_axis_name, y_axis_name, x_axis_rotation,
+                                          y_axis_rotation, x_axis_location, y_axis_location,
+                                          title, x_log_axis, y_log_axis, graph_font, math_font,
+                                          comments_x_axis, comments_x_coordinates,
+                                          comment_drawing, comments_drawing_x, comments_drawing_y,
+                                          comments_drawing_text,
+                                          axis_scientific, automatic_scientific, scientific_power,
+                                          x_axis_size, x_axis_color, y_axis_size, y_axis_color, axes_size, axes_color,
+                                          title_size,
+                                          title_color, comments_x_size, comments_x_color, comments_size, comments_color,
+                                          line_style, line_width, line_color, borders, hide_ticks, grid)
+            return
+        if enable_arrow and self.checkBox_StepLine.checkState() == 2:
+            Plotter.plot_graph_with_arrow(self, x_array_step, y_array_step, x_axis_name, y_axis_name, x_axis_rotation,
+                                          y_axis_rotation, x_axis_location, y_axis_location, title,
+                                          x_log_axis, y_log_axis, graph_font, math_font,
+                                          comments_x_axis, comments_x_coordinates,
+                                          comment_drawing, comments_drawing_x, comments_drawing_y,
+                                          comments_drawing_text,
+                                          axis_scientific, automatic_scientific, scientific_power,
+                                          x_axis_size, x_axis_color, y_axis_size, y_axis_color, axes_size, axes_color,
+                                          title_size,
+                                          title_color, comments_x_size, comments_x_color, comments_size, comments_color,
+                                          line_style, line_width, line_color, borders, hide_ticks, grid)
+            return
         if self.checkBox_StepLine.checkState() == 0:
             Plotter.plot_graph(self, x_array, y_array, x_axis_name, y_axis_name, x_axis_rotation, y_axis_rotation,
                                x_axis_location, y_axis_location, title, x_log_axis, y_log_axis, graph_font, math_font,
@@ -338,7 +397,9 @@ class MatplotlibWidget(QMainWindow):
                                comment_drawing, comments_drawing_x, comments_drawing_y, comments_drawing_text,
                                axis_scientific, automatic_scientific, scientific_power,
                                x_axis_size, x_axis_color, y_axis_size, y_axis_color, axes_size, axes_color, title_size,
-                               title_color, comments_x_size, comments_x_color, comments_size, comments_color)
+                               title_color, comments_x_size, comments_x_color, comments_size, comments_color,
+                               line_style, line_width, line_color, borders, hide_ticks, grid)
+            return
         if self.checkBox_StepLine.checkState() == 2:
             Plotter.plot_graph(self, x_array_step, y_array_step, x_axis_name, y_axis_name, x_axis_rotation,
                                y_axis_rotation, x_axis_location, y_axis_location, title,
@@ -347,14 +408,17 @@ class MatplotlibWidget(QMainWindow):
                                comment_drawing, comments_drawing_x, comments_drawing_y, comments_drawing_text,
                                axis_scientific, automatic_scientific, scientific_power,
                                x_axis_size, x_axis_color, y_axis_size, y_axis_color, axes_size, axes_color, title_size,
-                               title_color, comments_x_size, comments_x_color, comments_size, comments_color)
+                               title_color, comments_x_size, comments_x_color, comments_size, comments_color,
+                               line_style, line_width, line_color, borders, hide_ticks, grid)
+            return
 
     def general_update(self):
         global x_array, y_array, graph_font, math_font, x_axis_name, y_axis_name, title, \
             x_axis_rotation, y_axis_rotation, x_axis_location, y_axis_location, \
             axis_scientific, automatic_scientific, scientific_power, comment_drawing, \
             x_axis_size, x_axis_color, y_axis_size, y_axis_color, axes_size, axes_color, title_size, title_color, \
-            comments_x_size, comments_x_color, comments_size, comments_color
+            comments_x_size, comments_x_color, comments_size, comments_color, line_style, line_width, \
+            borders, hide_ticks, enable_arrow, grid
 
         graph_font = self.comboBox_GraphFont.currentText()
         math_font = self.comboBox_MathFont.currentText()
@@ -372,6 +436,8 @@ class MatplotlibWidget(QMainWindow):
         y_axis_size = self.spinBox_YAxisSize.value()
         axes_size = self.spinBox_AxisNotationSize.value()
         comments_x_size = self.spinBox_CommentXSize.value()
+        line_style = self.comboBox_LineStyle.currentText()
+        line_width = self.doubleSpinBox_LineWidth.value()
 
         if self.checkBox_ScientificNotation.checkState() == 2:
             axis_scientific = True
@@ -387,6 +453,26 @@ class MatplotlibWidget(QMainWindow):
             comment_drawing = True
         else:
             comment_drawing = False
+
+        if self.checkBox_HideBorder.checkState() == 2:
+            borders = False
+        else:
+            borders = True
+
+        if self.checkBox_EnableGrid.checkState() == 2:
+            grid = True
+        else:
+            grid = False
+
+        if self.checkBox_EnableTicks.checkState() == 2:
+            hide_ticks = True
+        else:
+            hide_ticks = False
+
+        if self.checkBox_EnableArrow.checkState() == 2:
+            enable_arrow = True
+        else:
+            enable_arrow = False
 
         self.stepgraph_coordinates()
         self.get_coordinate_comments()
@@ -405,7 +491,6 @@ class MatplotlibWidget(QMainWindow):
 
     def open_file(self):
         global x_array, y_array, x_array_step, y_array_step
-        filename = None
         nofile = ('', '')
         current_folder_path = os.getcwd()
         filename = QFileDialog.getOpenFileName(self, "Open File", current_folder_path,
