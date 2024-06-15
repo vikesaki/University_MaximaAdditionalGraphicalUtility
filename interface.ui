@@ -1428,9 +1428,7 @@ QTableWidget::item{
                     </font>
                    </property>
                    <property name="text">
-                    <string>Enable arrow on axes 
-(Warning! This will make 
-some feature unusable!)</string>
+                    <string>Enable arrow on axes</string>
                    </property>
                   </widget>
                  </item>
