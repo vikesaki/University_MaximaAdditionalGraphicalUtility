@@ -30,7 +30,7 @@ def extract_coordinate(input_string):
     return x_array, y_array
 
 
-def add_boundaries(xArray, yArray, value):
+def add_boundaries(xArray, yArray, value, yvalue, xvalue):
     """
     Adding Boundaries to the x and y coordinate
     :param value: float value of x boundaries
@@ -40,14 +40,17 @@ def add_boundaries(xArray, yArray, value):
     """
 
     value = float(value)
+    yvalue = float(yvalue)
+    xvalue = float(xvalue)
     new_x = np.max(xArray) + value
     # new_y = math.floor(yArray.min())
 
     # Prepend the new value to the array
     xArray = np.insert(xArray, 0, new_x)
-    xArray = np.append(xArray, 0)
+    xArray = np.append(xArray, xvalue)
+    xArray = np.sort(xArray)[::-1]
     for i in range(2):
-        yArray = np.insert(yArray, 0, 0)
+        yArray = np.insert(yArray, 0, yvalue)
 
     return xArray, yArray
 

@@ -21,6 +21,8 @@ coordinate = {}
 x_array_step = []
 y_array_step = []
 eps = 0
+startpoint = 0
+endpoint = 0
 
 # axes initialization
 # x-axis title
@@ -341,14 +343,22 @@ class MatplotlibWidget(QMainWindow):
         self.update_comment_drawing()
 
     def stepgraph_coordinates(self):
-        global x_array, y_array, x_array_step, y_array_step, eps
+        global x_array, y_array, x_array_step, y_array_step, eps, startpoint, endpoint
         eps = (self.LineEdit_eps.text())
+        startpoint = self.LineEdit_startpoint.text()
+        endpoint = self.LineEdit_endpoint.text()
         if eps == "":
             eps = 0
+        if startpoint == "":
+            startpoint = 0
+        if endpoint == "":
+            endpoint = 0
         # Duplicate the coordinates to make a stepwise graph
         x_coordinates, y_coordinates = Coordinate.duplicate_coordinates(x_array, y_array)
         # Parameters for lower and higher border
-        x_array_step, y_array_step = Coordinate.add_boundaries(x_coordinates, y_coordinates, eps)
+        x_array_step, y_array_step = Coordinate.add_boundaries(x_coordinates, y_coordinates, eps, startpoint, endpoint)
+        print("X-Step values:", x_array_step)
+        print("Y-Step values:", y_array_step)
 
     def draw_graph(self):
         global x_array, y_array, graph_font, math_font, x_axis_name, y_axis_name, title, \
