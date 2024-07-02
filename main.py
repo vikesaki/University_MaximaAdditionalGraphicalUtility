@@ -13,6 +13,8 @@ import Coordinate
 import Icons
 import numpy as np
 import random
+from interface import *
+from Icons_rc import *
 
 # Param initialization
 x_array = []
@@ -84,13 +86,10 @@ graph_font = "Times New Roman"
 math_font = "dejavusans"
 
 
-class MatplotlibWidget(QMainWindow):
-
+class MatplotlibWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
-        QMainWindow.__init__(self)
-
-        loadUi("interface.ui", self)
-
+        super(MatplotlibWidget, self).__init__()
+        self.setupUi(self)
         self.setWindowTitle("Maxima Drawing Utility")
 
         # Navigation Toolbar
