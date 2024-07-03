@@ -131,6 +131,9 @@
     <file>icons/line/volume.svg</file>
     <file>icons/line/wifi.svg</file>
   </qresource>
+  <qresource prefix="Thumbnail">
+    <file>icons/icons.png</file>
+  </qresource>
   <qresource prefix="Color1">
     <file>icons/color1/3-dots-horizontal.svg</file>
     <file>icons/color1/3-dots-vertical.svg</file>

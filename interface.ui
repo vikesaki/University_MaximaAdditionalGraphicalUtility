@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons/icons.png</normaloff>icons/icons.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow {
 	background-color: #f8f8f6
